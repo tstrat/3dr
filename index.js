@@ -16,6 +16,10 @@ const d20Rolls = (staticModifier = 0) => {
     return rtn;
 }
 
+const splitDiceRollString = (inputStr) => {
+    return inputStr.match(/\d+/gi);
+}
+
 const d20adv = (staticModifier = 0) => {
     const rolls = d20Rolls(staticModifier);
     return [ Math.max(rolls[0][0], rolls[0][1]), staticModifier, Math.max(rolls[0][0], rolls[0][1])];
@@ -25,7 +29,8 @@ const d20disAdv = (staticModifier = 0) => {
     const rolls = d20Rolls(staticModifier);
     return [ Math.min(rolls[0][0], rolls[0][1]), staticModifier, Math.min(rolls[0][0], rolls[0][1])];
 }
-const crit = (numberOfRolls, sides, staticModifier = 0) => {
+
+const critDamage = (numberOfRolls, sides, staticModifier = 0) => {
     const first = dieRoller(numberOfRolls, sides, staticModifier);
     const second = dieRoller(numberOfRolls, sides, staticModifier);
     total = first[0].reduce((t, n) => n + t, 0) + second[0].reduce((t, n) => n + t, 0) + staticModifier;
@@ -45,16 +50,14 @@ const dieRollString = (numberOfRolls, sides, staticModifier) => {
     return str;
 }
 
-// TESTING
 
-let roll = dieRollString(2,20,11);
-console.log(roll);
-
-let critical = crit(2, 6, 5);
-critical;
-
-let adv = d20adv();
-console.log(adv);
-
-let disAdv = d20disAdv();
-console.log(disAdv);
+module.exports = {
+    critDamage,
+    d20Rolls,
+    d20adv,
+    d20disAdv,
+    dieRoller,
+    dieRollString,
+    simpleRoll,
+    splitDiceRollString,
+}
