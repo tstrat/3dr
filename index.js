@@ -50,7 +50,6 @@ const dieRollString = (numberOfRolls, sides, staticModifier) => {
     return str;
 }
 
-
 module.exports = {
     critDamage,
     d20Rolls,
